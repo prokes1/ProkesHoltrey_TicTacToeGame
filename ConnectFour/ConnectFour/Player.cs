@@ -10,6 +10,7 @@ namespace ConnectFour
     {
         private string _name;
         private int _score;
+        private string _color;
 
         public string Name
         {
@@ -21,5 +22,11 @@ namespace ConnectFour
             get { return _score; }
             set { _score = value; }
         }
+        public string Color
+        {
+            get { return _color; }
+            set { _color = value; }
+        }
+
     }
 }
