@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConnectFour
 {
-    class Player
+    public class Player
     {
         private string _name;
         private int _score;

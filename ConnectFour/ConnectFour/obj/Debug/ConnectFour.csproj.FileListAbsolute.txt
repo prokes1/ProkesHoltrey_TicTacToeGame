@@ -7,3 +7,6 @@ C:\Users\Jason\Documents\FreeTimeProgramming\C#\Console Applications\ConnectFour
 C:\Users\Jason\Source\Repos\ProkesHoltrey_TicTacToeGame\ConnectFour\ConnectFour\bin\Debug\ConnectFour.exe.config
 C:\Users\Jason\Source\Repos\ProkesHoltrey_TicTacToeGame\ConnectFour\ConnectFour\obj\Debug\ConnectFour.exe
 C:\Users\Jason\Source\Repos\ProkesHoltrey_TicTacToeGame\ConnectFour\ConnectFour\obj\Debug\ConnectFour.pdb
+C:\Users\Jason\Source\Repos\ProkesHoltrey_TicTacToeGame\ConnectFour\ConnectFour\obj\Debug\ConnectFour.csprojResolveAssemblyReference.cache
+C:\Users\Jason\Source\Repos\ProkesHoltrey_TicTacToeGame\ConnectFour\ConnectFour\bin\Debug\ConnectFour.exe
+C:\Users\Jason\Source\Repos\ProkesHoltrey_TicTacToeGame\ConnectFour\ConnectFour\bin\Debug\ConnectFour.pdb

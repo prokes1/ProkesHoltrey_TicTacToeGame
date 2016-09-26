@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace ConnectFour
 {
-    class Control
+    public class Control
     {
+        private static Gameboard _gameboard = new Gameboard();
+        private static ConsoleView _gameView = new ConsoleView(_gameboard);
         public Control()
         {
-            Gameboard gameboard = new Gameboard();
-            gameboard.InitializeGameboard();
+            _gameView.DisplayGameboard();
         }
     }
 }
