@@ -25,10 +25,10 @@ namespace ConnectFour
             CatsGame
         }
 
-        private string[,] _cells = new string[8, 9];
+        private string[,] _cells = new string[7, 6];
         private const int MAX_COLUMNS = 7;
         private const int MAX_ROWS = 6;
-        private List<int> _columnValues = new List<int>(new int[8]);
+        private List<int> _columnValue = new List<int>(new int[7]);
         private GameboardState _currentRoundState;
 
         public int MaxColumnNum
@@ -41,8 +41,8 @@ namespace ConnectFour
         }
         public List<int> ColumnValues
         {
-            get { return _columnValues; }
-            set { _columnValues = value; }
+            get { return _columnValue; }
+            set { _columnValue = value; }
         }
 
         public string[,] Cells
@@ -60,7 +60,6 @@ namespace ConnectFour
 
         public Gameboard()
         {
-
             InitializeGameboard();
         }
         public void InitializeGameboard()
@@ -74,7 +73,7 @@ namespace ConnectFour
             {
                 for (int column = 0; column < MAX_COLUMNS; column++)
                 {
-                     _cells[row, column] = CellValues.E.ToString();
+                    _cells[column, row] = CellValues.E.ToString();
                 }
             }
         }
@@ -85,15 +84,47 @@ namespace ConnectFour
             // Confirm that the board position is empty
             // Note: gameboardPosition converted to array index by subtracting 1
             //
-
-            if (_cells[playerColumnChoice - 1, _columnValues[playerColumnChoice]] == CellValues.E.ToString())
+            int cellLevel;
+            cellLevel = _columnValue[playerColumnChoice];
+            switch (cellLevel)
+            {
+                case 1:
+                    cellLevel = 6;
+                    break;
+                case 2:
+                    cellLevel = 5;
+                    break;
+                case 3:
+                    cellLevel = 4;
+                    break;
+                case 4:
+                    cellLevel = 3;
+                    break;
+                case 5:
+                    cellLevel = 2;
+                    break;
+                case 6:
+                    cellLevel = 1;
+                    break;
+                default:
+                    break;
+            }
+            try
+            {
+                if (_cells[playerColumnChoice, cellLevel-1] == CellValues.E.ToString())
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            
         }
         public void UpdateGameboardState()
         {
@@ -148,7 +179,7 @@ namespace ConnectFour
             {
                 for (int column = 0; column < MaxColumnNum; column++)
                 {
-                    if (_cells[row, column] == CellValues.E.ToString())
+                    if (_cells[column, row] == CellValues.E.ToString())
                     {
                         return false;
                     }
@@ -156,19 +187,38 @@ namespace ConnectFour
             }
             return true;
         }
-        public void SetPlayerPiece(int gameboardPosition, Gameboard.CellValues PlayerPiece, int currentRowValue)
+        public void SetPlayerPiece(int playerColumnChoice, Gameboard.CellValues PlayerPiece)
         {
-            //
-            // Row and column value adjusted to match array structure
-            // Note: gameboardPosition converted to array index by subtracting 1
-            //
-            _cells[currentRowValue, gameboardPosition - 1] = PlayerPiece.ToString();
-            //_cellValue[currentRowValue, gameboardPosition - 1] = PlayerPiece;
+            int cellLevel = _columnValue[playerColumnChoice];
+            switch (cellLevel)
+            {
+                case 1:
+                    cellLevel = 6;
+                    break;
+                case 2:
+                    cellLevel = 5;
+                    break;
+                case 3:
+                    cellLevel = 4;
+                    break;
+                case 4:
+                    cellLevel = 3;
+                    break;
+                case 5:
+                    cellLevel = 2;
+                    break;
+                case 6:
+                    cellLevel = 1;
+                    break;
+                default:
+                    break;
+            }
 
-            //
-            // Change game board state to next player
-            //
+            _cells[playerColumnChoice, cellLevel - 1] = PlayerPiece.ToString();
             SetNextPlayer();
+
+            //_cells[playerColumnChoice, _columnValue[playerColumnChoice] - 1] = PlayerPiece.ToString();
+            //SetNextPlayer();
         }
         private void SetNextPlayer()
         {

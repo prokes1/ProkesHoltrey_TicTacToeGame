@@ -24,7 +24,6 @@ namespace ConnectFour
 
         private Gameboard _gameboard;
         private ViewState _currentViewState;
-
         
         
         #region PROPERTIES
@@ -76,9 +75,9 @@ namespace ConnectFour
         {
             Console.SetCursorPosition(0, GAMEBOARD_VERTICAL_LOCATION);
 
-            for (int x = 0; x <= 5; x++)
+            for (int y = 0; y <= 5; y++)
             {
-                if (x > 0)
+                if (y > 0)
                 {
                     Console.WriteLine("|_____|_____|_____|_____|_____|_____|_____|");
                 }
@@ -86,10 +85,14 @@ namespace ConnectFour
                 {
                     Console.WriteLine(" _________________________________________");
                 }
-                for (int y = 0; y <= 6; y++)
+                for (int x = 0; x <= 6; x++)
                 {
-                    _gameboard.Cells[x, y] = Gameboard.CellValues.E.ToString();
-                    Console.Write("|  " + _gameboard.Cells[x, y] + "  ");
+                    if (_gameboard.Cells[x, y] == Gameboard.CellValues.E.ToString())
+                    {
+                        Console.Write("|     ");
+                    }
+                    else
+                    Console.Write("|  " + _gameboard.Cells[x,y] + "  ");
                 }
                 Console.WriteLine("|");
             }
@@ -323,7 +326,8 @@ namespace ConnectFour
 
                     if (tempCoordinate >= 1 && tempCoordinate <= _gameboard.MaxColumnNum)
                     {
-                        if (_gameboard.ColumnValues[tempCoordinate] >= 7)
+                        tempCoordinate -= 1;
+                        if (_gameboard.ColumnValues[tempCoordinate] >= 6)
                         {
                             DisplayMessageBox("Column is full.");
                         }
@@ -344,10 +348,9 @@ namespace ConnectFour
                     DisplayMessageBox("Numbers are limited to 1 - 7....");
                 }
 
-
+                
                 numOfPlayerAttempts++;
             }
-
             CurrentViewState = ViewState.PlayerUsedMaxAttempts;
             return tempCoordinate;
         }

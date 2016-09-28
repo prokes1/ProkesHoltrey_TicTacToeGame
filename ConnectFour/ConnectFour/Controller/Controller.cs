@@ -39,6 +39,8 @@ namespace ConnectFour
             _numberOfCatsGames = 0;
             _gameboard = new Gameboard();
             _gameView = new ConsoleView(_gameboard);
+            _playerO.PlayerPiece = Gameboard.CellValues.O;
+            _playerX.PlayerPiece = Gameboard.CellValues.X;
             //
             // Initialize game board status
             //
@@ -166,11 +168,11 @@ namespace ConnectFour
                 {
                     if (_gameboard.CurrentRoundState == Gameboard.GameboardState.PlayerOTurn)
                     {
-                        _gameboard.SetPlayerPiece(gameboardPosition, _playerO.PlayerPiece, 0);
+                        _gameboard.SetPlayerPiece(gameboardPosition, _playerO.PlayerPiece);
                     }
                     else if (_gameboard.CurrentRoundState == Gameboard.GameboardState.PlayerXTurn)
                     {
-                        _gameboard.SetPlayerPiece(gameboardPosition, _playerX.PlayerPiece, 0);
+                        _gameboard.SetPlayerPiece(gameboardPosition, _playerX.PlayerPiece);
                     }
                 }
                 else
