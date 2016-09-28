@@ -11,7 +11,7 @@ namespace ConnectFour
         private string _name;
         private int _score;
         private string _color;
-
+        private Gameboard.CellValues _playerPiece;
         public string Name
         {
             get { return _name; }
@@ -26,6 +26,11 @@ namespace ConnectFour
         {
             get { return _color; }
             set { _color = value; }
+        }
+        public Gameboard.CellValues PlayerPiece
+        {
+            get { return _playerPiece; }
+            set { _playerPiece = value; }
         }
 
     }

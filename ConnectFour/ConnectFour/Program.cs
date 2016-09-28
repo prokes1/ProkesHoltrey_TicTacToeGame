@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ConnectFour;
 
 namespace ConnectFour
 {
-    public class Program
+    class Program
     {
-        public static void Main(string[] args)
-        {
-            Control control = new Control();
 
-            Console.WriteLine("Press enter to exit.");
-            Console.ReadLine();
+        static void Main(string[] args)
+        {
+
+            GameControl control = new GameControl();
+
         }
-        
     }
 }
