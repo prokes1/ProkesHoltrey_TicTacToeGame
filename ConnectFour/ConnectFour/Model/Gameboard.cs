@@ -84,31 +84,8 @@ namespace ConnectFour
             // Confirm that the board position is empty
             // Note: gameboardPosition converted to array index by subtracting 1
             //
-            int cellLevel;
-            cellLevel = _columnValue[playerColumnChoice];
-            switch (cellLevel)
-            {
-                case 1:
-                    cellLevel = 6;
-                    break;
-                case 2:
-                    cellLevel = 5;
-                    break;
-                case 3:
-                    cellLevel = 4;
-                    break;
-                case 4:
-                    cellLevel = 3;
-                    break;
-                case 5:
-                    cellLevel = 2;
-                    break;
-                case 6:
-                    cellLevel = 1;
-                    break;
-                default:
-                    break;
-            }
+            int cellLevel = _columnValue[playerColumnChoice];
+            cellLevel = Math.Abs(cellLevel-7);
             try
             {
                 if (_cells[playerColumnChoice, cellLevel-1] == CellValues.E.ToString())
@@ -190,35 +167,9 @@ namespace ConnectFour
         public void SetPlayerPiece(int playerColumnChoice, Gameboard.CellValues PlayerPiece)
         {
             int cellLevel = _columnValue[playerColumnChoice];
-            switch (cellLevel)
-            {
-                case 1:
-                    cellLevel = 6;
-                    break;
-                case 2:
-                    cellLevel = 5;
-                    break;
-                case 3:
-                    cellLevel = 4;
-                    break;
-                case 4:
-                    cellLevel = 3;
-                    break;
-                case 5:
-                    cellLevel = 2;
-                    break;
-                case 6:
-                    cellLevel = 1;
-                    break;
-                default:
-                    break;
-            }
-
+            cellLevel = Math.Abs(cellLevel-7);
             _cells[playerColumnChoice, cellLevel - 1] = PlayerPiece.ToString();
             SetNextPlayer();
-
-            //_cells[playerColumnChoice, _columnValue[playerColumnChoice] - 1] = PlayerPiece.ToString();
-            //SetNextPlayer();
         }
         private void SetNextPlayer()
         {
