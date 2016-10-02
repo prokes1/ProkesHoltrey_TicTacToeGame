@@ -65,10 +65,6 @@ namespace ConnectFour
         public void InitializeGameboard()
         {
             _currentRoundState = GameboardState.NewRound;
-
-            //
-            // Set all PlayerPiece array values to "None"
-            //
             for (int row = 0; row < MAX_ROWS; row++)
             {
                 for (int column = 0; column < MAX_COLUMNS; column++)
@@ -78,17 +74,14 @@ namespace ConnectFour
             }
         }
 
+
         public bool GameboardPositionAvailable(int playerColumnChoice)
         {
-            //
-            // Confirm that the board position is empty
-            // Note: gameboardPosition converted to array index by subtracting 1
-            //
             int cellLevel = _columnValue[playerColumnChoice];
-            cellLevel = Math.Abs(cellLevel-7);
+            cellLevel = Math.Abs(cellLevel - 7);
             try
             {
-                if (_cells[playerColumnChoice, cellLevel-1] == CellValues.E.ToString())
+                if (_cells[playerColumnChoice, cellLevel - 1] == CellValues.E.ToString())
                 {
                     return true;
                 }
@@ -101,18 +94,18 @@ namespace ConnectFour
             {
                 return true;
             }
-            
+
         }
         public void UpdateGameboardState()
         {
-            if (FourInARow())
+            if (FourInARow(CellValues.X))
             {
                 _currentRoundState = GameboardState.PlayerXWin;
             }
             //
             // A player O has won
             //
-            else if (FourInARow())
+            else if (FourInARow(CellValues.O))
             {
                 _currentRoundState = GameboardState.PlayerOWin;
             }
@@ -124,21 +117,81 @@ namespace ConnectFour
                 _currentRoundState = GameboardState.CatsGame;
             }
         }
-        private bool FourInARow()
+        private bool FourInARow(CellValues cellValue)
         {
-            //
-            // Check rows for player win
-            //
-
-
-            //
+            // Check rows for player win            
+            string pieceToCheck = cellValue.ToString();
+            for (int row = 0; row <= 6; row++)
+            {
+                if((_cells[row, 0] == pieceToCheck &&
+                    _cells[row, 1] == pieceToCheck &&
+                    _cells[row, 2] == pieceToCheck &&
+                    _cells[row, 3] == pieceToCheck) ||
+                   (_cells[row, 1] == pieceToCheck &&
+                    _cells[row, 2] == pieceToCheck &&
+                    _cells[row, 3] == pieceToCheck &&
+                    _cells[row, 4] == pieceToCheck) ||
+                   (_cells[row, 2] == pieceToCheck &&
+                    _cells[row, 3] == pieceToCheck &&
+                    _cells[row, 4] == pieceToCheck &&
+                    _cells[row, 5] == pieceToCheck))
+                {
+                    return true;
+                }
+            }
             // Check columns for player win
-            //
-
-
-            //
+            for (int column = 0; column <= 5; column++)
+            {
+                if((_cells[0, column] == pieceToCheck &&
+                    _cells[1, column] == pieceToCheck &&
+                    _cells[2, column] == pieceToCheck &&
+                    _cells[3, column] == pieceToCheck) ||
+                   (_cells[1, column] == pieceToCheck &&
+                    _cells[2, column] == pieceToCheck &&
+                    _cells[3, column] == pieceToCheck &&
+                    _cells[4, column] == pieceToCheck) ||
+                   (_cells[2, column] == pieceToCheck &&
+                    _cells[3, column] == pieceToCheck &&
+                    _cells[4, column] == pieceToCheck &&
+                    _cells[5, column] == pieceToCheck) ||
+                   (_cells[3, column] == pieceToCheck &&
+                    _cells[4, column] == pieceToCheck &&
+                    _cells[5, column] == pieceToCheck &&
+                    _cells[6, column] == pieceToCheck)
+                    )
+                {
+                    return true;
+                }
+            }
             // Check diagonals for player win
-            //
+            //none of this is working.
+            //int win = 0;
+            //for (int i = 0; i < 4; i++)
+            //{
+            //    if (_cells[i,i] == pieceToCheck ||
+            //        _cells[i+1,i+1] == pieceToCheck ||
+            //        _cells[i+2,i+2] == pieceToCheck)
+            //        win++;
+            //    if (_cells[i+1, i] == pieceToCheck ||
+            //        _cells[i+2, i+1] == pieceToCheck ||
+            //        _cells[i+3, i+2] == pieceToCheck)
+            //        win++;
+            //    if (_cells[i, i + 1] == pieceToCheck ||
+            //        _cells[i + 1, i + 2] == pieceToCheck)
+            //        win++;
+            //    if (_cells[i + 2, i] == pieceToCheck ||
+            //        _cells[i + 3, i + 1] == pieceToCheck)
+            //        win++;
+            //    if (_cells[i, i + 2] == pieceToCheck)
+            //        win++;
+            //    if (_cells[i + 3, i] == pieceToCheck)
+            //        win++;
+            //    if (win >= 4)
+            //    {
+            //        return true;
+            //    }
+            //}
+
 
 
             //
@@ -167,7 +220,7 @@ namespace ConnectFour
         public void SetPlayerPiece(int playerColumnChoice, Gameboard.CellValues PlayerPiece)
         {
             int cellLevel = _columnValue[playerColumnChoice];
-            cellLevel = Math.Abs(cellLevel-7);
+            cellLevel = Math.Abs(cellLevel - 7);
             _cells[playerColumnChoice, cellLevel - 1] = PlayerPiece.ToString();
             SetNextPlayer();
         }

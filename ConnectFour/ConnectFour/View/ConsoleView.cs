@@ -158,9 +158,7 @@ namespace ConnectFour
             switch (_gameboard.CurrentRoundState)
             {
                 case Gameboard.GameboardState.NewRound:
-                    //
-                    // The new game status should not be an necessary option here
-                    //
+                    
                     break;
                 case Gameboard.GameboardState.PlayerXTurn:
                     DisplayMessageBox("It is currently Player X's turn.");
