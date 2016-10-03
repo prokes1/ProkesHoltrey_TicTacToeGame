@@ -165,11 +165,11 @@ namespace ConnectFour
                 }
             }
             //This makes some diagonals work...
-            for (int column = 0; column < 3; column++)
+            for (int row = 0; row <= 3; row++)
             {
-                for (int row = 0; row < 2; row++)
+                for (int column = 0; column <= 2; column++)
                 {
-                    if (
+                    if (_cells[row, column] == pieceToCheck &&
                         _cells[row + 1, column + 1] == pieceToCheck &&
                         _cells[row + 2, column + 2] == pieceToCheck &&
                         _cells[row + 3, column + 3] == pieceToCheck)
@@ -178,14 +178,15 @@ namespace ConnectFour
                     }
                 }
             }
-            for (int row = 6; row >= 4; row--)
+
+            for (int row = 0; row <= 3; row++)
             {
-                for (int column = 5; column >= 3; column--)
+                for (int column = 3; column <= 5; column++)
                 {
                     if (_cells[row, column] == pieceToCheck &&
-                        _cells[row - 1, column - 1] == pieceToCheck &&
-                        _cells[row - 2, column - 2] == pieceToCheck &&
-                        _cells[row - 3, column - 3] == pieceToCheck)
+                        _cells[row + 1, column - 1] == pieceToCheck &&
+                        _cells[row + 2, column - 2] == pieceToCheck &&
+                        _cells[row + 3, column - 3] == pieceToCheck)
                     {
                         return true;
                     }

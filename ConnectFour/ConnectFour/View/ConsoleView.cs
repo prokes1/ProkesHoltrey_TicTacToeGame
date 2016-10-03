@@ -336,6 +336,7 @@ namespace ConnectFour
             ConsoleUtil.DisplayMessage("Player X Wins: " + playerXWins + " - " + String.Format("{0:P2}", playerXPercentageWins));
             ConsoleUtil.DisplayMessage("Player O Wins: " + playerOWins + " - " + String.Format("{0:P2}", playerOPercentageWins));
             ConsoleUtil.DisplayMessage("Cat's Games: " + catsGames + " - " + String.Format("{0:P2}", percentageOfCatsGames));
+            DisplayContinuePrompt();
         }
         private bool DisplayGetYesNoPrompt(string promptMessage)
         {
