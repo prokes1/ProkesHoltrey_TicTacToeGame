@@ -325,21 +325,17 @@ namespace ConnectFour
             DisplayReset();
             ConsoleUtil.HeaderText = "Current Game Status";
 
-            string[] PlayerInfo = { "Rounds Played: " + roundsPlayed, "Player X Wins: " + playerXWins.ToString(), "Player O Wins: " + playerOWins.ToString() };
-            System.IO.StreamWriter file = new StreamWriter(@"..\PlayerStats.txt");
-            file.WriteLine(PlayerInfo);
-            file.Close();
+            string[] PlayerInfo = { "Rounds Played: " + roundsPlayed.ToString(), "Player X Wins: " + playerXWins.ToString(), "Player O Wins: " + playerOWins.ToString() };
+            File.WriteAllLines(@"..\PlayerStats.txt", PlayerInfo);
 
             double playerXPercentageWins = (double)playerXWins / roundsPlayed;
             double playerOPercentageWins = (double)playerOWins / roundsPlayed;
             double percentageOfCatsGames = (double)catsGames / roundsPlayed;
 
             ConsoleUtil.DisplayMessage("Rounds Played: " + roundsPlayed);
-            ConsoleUtil.DisplayMessage("Rounds for Player X: " + playerXWins + " - " + String.Format("{0:P2}", playerXPercentageWins));
-            ConsoleUtil.DisplayMessage("Rounds for Player O: " + playerOWins + " - " + String.Format("{0:P2}", playerOPercentageWins));
+            ConsoleUtil.DisplayMessage("Player X Wins: " + playerXWins + " - " + String.Format("{0:P2}", playerXPercentageWins));
+            ConsoleUtil.DisplayMessage("Player O Wins: " + playerOWins + " - " + String.Format("{0:P2}", playerOPercentageWins));
             ConsoleUtil.DisplayMessage("Cat's Games: " + catsGames + " - " + String.Format("{0:P2}", percentageOfCatsGames));
-
-            DisplayContinuePrompt();
         }
         private bool DisplayGetYesNoPrompt(string promptMessage)
         {
