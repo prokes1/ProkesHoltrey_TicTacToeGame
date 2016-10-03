@@ -72,6 +72,7 @@ namespace ConnectFour
                     _cells[column, row] = CellValues.E.ToString();
                 }
             }
+            _columnValue = new List<int>(new int[7]);
         }
 
 

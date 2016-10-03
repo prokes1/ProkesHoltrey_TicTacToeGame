@@ -114,7 +114,7 @@ namespace ConnectFour
             Console.ForegroundColor = ConsoleColor.Black;
 
             Console.WriteLine(ConsoleUtil.FillStringWithSpaces(Window_Width));
-            Console.WriteLine(ConsoleUtil.Center("Tic - Tac - Toe"));
+            Console.WriteLine(ConsoleUtil.Center("Connect Four"));
             Console.WriteLine(ConsoleUtil.FillStringWithSpaces(Window_Width));
 
             Console.ResetColor();
@@ -242,10 +242,10 @@ namespace ConnectFour
         }
         public void DisplayClosingScreen()
         {
-            ConsoleUtil.HeaderText = "The Tic-tac-toe Game";
+            ConsoleUtil.HeaderText = "The Connect Four Game";
             ConsoleUtil.DisplayReset();
 
-            ConsoleUtil.DisplayMessage("Thank you for using The Tic-tac-toe Game.");
+            ConsoleUtil.DisplayMessage("Thanks for playing! Come back soon, ya' hear?");
 
             DisplayContinuePrompt();
         }
@@ -326,7 +326,7 @@ namespace ConnectFour
             ConsoleUtil.HeaderText = "Current Game Status";
 
             string[] PlayerInfo = { "Rounds Played: " + roundsPlayed, "Player X Wins: " + playerXWins.ToString(), "Player O Wins: " + playerOWins.ToString() };
-            System.IO.StreamWriter file = new StreamWriter(@".\PlayerStats.txt");
+            System.IO.StreamWriter file = new StreamWriter(@"..\PlayerStats.txt");
             file.WriteLine(PlayerInfo);
             file.Close();
 
