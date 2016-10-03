@@ -25,3 +25,6 @@ C:\Users\Jason\Google Drive\School\Sem3\CIT255 OOP\TicTacToe(Updated)\TicTacToe\
 C:\Users\Joe\Source\Repos\ProkesHoltrey_TicTacToeGame\ConnectFour\ConnectFour\bin\Debug\ConnectFour.exe.config
 C:\Users\Joe\Source\Repos\ProkesHoltrey_TicTacToeGame\ConnectFour\ConnectFour\obj\Debug\ConnectFour.exe
 C:\Users\Joe\Source\Repos\ProkesHoltrey_TicTacToeGame\ConnectFour\ConnectFour\obj\Debug\ConnectFour.pdb
+C:\Users\holtre3\Source\Repos\ProkesHoltrey_TicTacToeGame\ConnectFour\ConnectFour\bin\Debug\ConnectFour.exe.config
+C:\Users\holtre3\Source\Repos\ProkesHoltrey_TicTacToeGame\ConnectFour\ConnectFour\obj\Debug\ConnectFour.exe
+C:\Users\holtre3\Source\Repos\ProkesHoltrey_TicTacToeGame\ConnectFour\ConnectFour\obj\Debug\ConnectFour.pdb
