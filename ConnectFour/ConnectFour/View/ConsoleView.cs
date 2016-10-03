@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,6 @@ namespace ConnectFour
 {
     public class ConsoleView
     {
-
         public enum ViewState
         {
             Active,
@@ -24,8 +24,14 @@ namespace ConnectFour
 
         private Gameboard _gameboard;
         private ViewState _currentViewState;
-        
-        
+
+        private const int Window_Width = ConsoleConfig.windowWidth;
+        private const int Window_Height = ConsoleConfig.windowHeight;
+
+        private const int Display_Horizontal_Margin = ConsoleConfig.Display_Horizontal_Margin;
+        private const int Display_Vertical_Margin = ConsoleConfig.Display__Vertical_Margin;
+
+
         #region PROPERTIES
         public ViewState CurrentViewState
         {
@@ -41,7 +47,6 @@ namespace ConnectFour
         {
             _gameboard = gameboard;
             InitializeView();
-
         }
 
         #endregion
@@ -55,22 +60,70 @@ namespace ConnectFour
         {
             _currentViewState = ViewState.Active;
 
-            InitializeConsole();
+            InitializeConsoleWindow();
         }
 
         /// <summary>
         /// configure the console window
         /// </summary>
-        public void InitializeConsole()
+        public void InitializeConsoleWindow()
         {
             ConsoleUtil.WindowWidth = ConsoleConfig.windowWidth;
             ConsoleUtil.WindowHeight = ConsoleConfig.windowHeight;
 
-            Console.BackgroundColor = ConsoleConfig.bodyBackgroundColor;
-            Console.ForegroundColor = ConsoleConfig.bodyForegroundColor;
+            Console.BackgroundColor = ConsoleColor.DarkMagenta;
+            Console.ForegroundColor = ConsoleColor.White;
 
-            ConsoleUtil.WindowTitle = "The Tic-tac-toe Game";
+            DisplayReset();
         }
+
+
+        public void DisplayMessage(string message)
+        {
+            // CODE CITATION: John Velis, NMC Instructor
+
+            //
+            // calculate the message area location on the console window
+            //
+            const int Message_Box_Text_Length = Window_Width - (2 * Display_Horizontal_Margin);
+            const int Message_Box_Horizontal_Margin = Display_Horizontal_Margin;
+
+            //
+            // create a list of strings to hold the wrapped text message
+            //
+            List<string> messageLines;
+
+            //
+            // call utility method to wrap text and loop through list of strings to display
+            //
+            messageLines = ConsoleUtil.Wrap(message, Message_Box_Text_Length, Message_Box_Horizontal_Margin);
+            foreach (var messageLine in messageLines)
+            {
+                Console.WriteLine(messageLine);
+            }
+        }
+
+        public void DisplayReset()
+        {
+            Console.SetWindowSize(Window_Width, Window_Height);
+
+            Console.Clear();
+            Console.CursorVisible = false;
+
+            Console.BackgroundColor = ConsoleColor.Cyan;
+            Console.ForegroundColor = ConsoleColor.Black;
+
+            Console.WriteLine(ConsoleUtil.FillStringWithSpaces(Window_Width));
+            Console.WriteLine(ConsoleUtil.Center("Tic - Tac - Toe"));
+            Console.WriteLine(ConsoleUtil.FillStringWithSpaces(Window_Width));
+
+            Console.ResetColor();
+            Console.BackgroundColor = ConsoleColor.DarkMagenta;
+            Console.ForegroundColor = ConsoleColor.White;
+
+            Console.WriteLine();
+        }
+
         public void DisplayGameboard()
         {
             Console.SetCursorPosition(0, GAMEBOARD_VERTICAL_LOCATION);
@@ -92,13 +145,88 @@ namespace ConnectFour
                         Console.Write("|     ");
                     }
                     else
-                    Console.Write("|  " + _gameboard.Cells[x,y] + "  ");
+                        Console.Write("|  " + _gameboard.Cells[x, y] + "  ");
                 }
                 Console.WriteLine("|");
             }
             Console.WriteLine("|_____|_____|_____|_____|_____|_____|_____|");
             Console.WriteLine("|  1     2     3     4     5     6     7  |");
         }
+
+        public void DisplayIntroMenu()
+        {
+            bool usingMenu = true;
+
+            while (usingMenu)
+            {
+                string leftTab = ConsoleUtil.FillStringWithSpaces(Display_Horizontal_Margin);
+
+                DisplayReset();
+                Console.CursorVisible = false;
+
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                DisplayMessage("Main Menu");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine();
+                Console.WriteLine();
+
+                DisplayMessage(leftTab + "1. Start Game");
+                Console.WriteLine();
+                DisplayMessage(leftTab + "2. View Game Rules");
+                Console.WriteLine();
+                DisplayMessage(leftTab + "3. Exit");
+                Console.WriteLine();
+                Console.WriteLine();
+
+                ConsoleKeyInfo userResponse = Console.ReadKey(true);
+                switch (userResponse.KeyChar)
+                {
+                    case '1':
+                        DisplayGameArea();
+                        usingMenu = false;
+                        break;
+                    case '2':
+                        DisplayGameRules();
+                        break;
+                    case '3':
+                        usingMenu = false;
+                        DisplayExitPrompt();
+                        break;
+                    default:
+                        DisplayMessage("It appears you have selected an incorrect choice.");
+                        Console.WriteLine();
+                        DisplayMessage("Press any key to continue or the ESC key to exit.");
+
+                        userResponse = Console.ReadKey(true);
+                        if (userResponse.Key == ConsoleKey.Escape)
+                        {
+                            usingMenu = false;
+                        }
+                        break;
+                }
+            }
+        }
+
+        public void DisplayGameRules()
+        {
+            DisplayReset();
+            Console.CursorVisible = false;
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            DisplayMessage("Game Rules");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine();
+            Console.WriteLine();
+
+            DisplayMessage("The name of the game is Connect Four. One player must get their pieces lined up four in a row anywhere on the board to win.");
+            Console.WriteLine();
+            DisplayMessage("The possible winning combinations are: Vertical, Horizontal, and Diagonal.");
+            Console.WriteLine();
+            DisplayMessage("After one of the players has managed one of the winning combinations, the players will be shown player-specific statistics prompted with a Post-Game Menu.");
+
+            DisplayContinuePrompt();
+        }
+
         public void DisplayContinuePrompt()
         {
             Console.CursorVisible = false;
@@ -123,12 +251,12 @@ namespace ConnectFour
         }
         public void DisplayExitPrompt()
         {
-            ConsoleUtil.DisplayReset();
+            DisplayReset();
 
             Console.CursorVisible = false;
 
             Console.WriteLine();
-            ConsoleUtil.DisplayMessage("Thank you for play the game. Press any key to Exit.");
+            ConsoleUtil.DisplayMessage("Thank you for playing the game. Press any key to Exit.");
 
             Console.ReadKey();
 
@@ -145,8 +273,7 @@ namespace ConnectFour
         }
         public void DisplayGameArea()
         {
-            ConsoleUtil.HeaderText = "Current Game Board";
-            ConsoleUtil.DisplayReset();
+            DisplayReset();
 
             DisplayGameboard();
             DisplayGameStatus();
@@ -158,7 +285,9 @@ namespace ConnectFour
             switch (_gameboard.CurrentRoundState)
             {
                 case Gameboard.GameboardState.NewRound:
-                    
+                    //
+                    // The new game status should not be an necessary option here
+                    //
                     break;
                 case Gameboard.GameboardState.PlayerXTurn:
                     DisplayMessageBox("It is currently Player X's turn.");
@@ -193,8 +322,13 @@ namespace ConnectFour
         }
         public void DisplayCurrentGameStatus(int roundsPlayed, int playerXWins, int playerOWins, int catsGames)
         {
+            DisplayReset();
             ConsoleUtil.HeaderText = "Current Game Status";
-            ConsoleUtil.DisplayReset();
+
+            string[] PlayerInfo = { "Rounds Played: " + roundsPlayed, "Player X Wins: " + playerXWins.ToString(), "Player O Wins: " + playerOWins.ToString() };
+            System.IO.StreamWriter file = new StreamWriter(@".\PlayerStats.txt");
+            file.WriteLine(PlayerInfo);
+            file.Close();
 
             double playerXPercentageWins = (double)playerXWins / roundsPlayed;
             double playerOPercentageWins = (double)playerOWins / roundsPlayed;
@@ -209,15 +343,16 @@ namespace ConnectFour
         }
         private bool DisplayGetYesNoPrompt(string promptMessage)
         {
+            DisplayReset();
             bool yesNoChoice = false;
             bool validResponse = false;
             string userResponse;
 
             while (!validResponse)
             {
-                ConsoleUtil.DisplayReset();
-
-                ConsoleUtil.DisplayPromptMessage(promptMessage + "(yes/no)");
+                DisplayReset();
+                ConsoleUtil.DisplayPromptMessage(promptMessage + " (yes/no)");
+                Console.WriteLine();
                 userResponse = Console.ReadLine();
 
                 if (userResponse.ToUpper() == "YES")
@@ -229,6 +364,7 @@ namespace ConnectFour
                 {
                     validResponse = true;
                     yesNoChoice = false;
+                    DisplayExitPrompt();
                 }
                 else
                 {
@@ -244,8 +380,8 @@ namespace ConnectFour
         }
         public bool DisplayNewRoundPrompt()
         {
+            DisplayReset();
             ConsoleUtil.HeaderText = "Continue or Quit";
-            ConsoleUtil.DisplayReset();
 
             return DisplayGetYesNoPrompt("Would you like to play another round?");
         }
@@ -346,7 +482,7 @@ namespace ConnectFour
                     DisplayMessageBox("Numbers are limited to 1 - 7....");
                 }
 
-                
+
                 numOfPlayerAttempts++;
             }
             CurrentViewState = ViewState.PlayerUsedMaxAttempts;
@@ -368,4 +504,4 @@ namespace ConnectFour
         }
     }
 }
-        #endregion
+#endregion

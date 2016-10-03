@@ -25,5 +25,8 @@ namespace ConnectFour
         public const string windowTitle = " - set window title - ";
 
         public const int displayHorizontalMargin = 3;
+
+        public const int Display_Horizontal_Margin = 3;
+        public const int Display__Vertical_Margin = 1;
     }
 }

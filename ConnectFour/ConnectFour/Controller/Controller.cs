@@ -48,7 +48,7 @@ namespace ConnectFour
         }
         public void PlayGame()
         {
-            //_gameView.DisplayWelcomeScreen();
+            _gameView.DisplayIntroMenu();
 
             while (_playingGame)
             {
