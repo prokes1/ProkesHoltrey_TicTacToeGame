@@ -164,7 +164,7 @@ namespace ConnectFour
                     return true;
                 }
             }
-            //This makes some diagonals work...
+            
             for (int row = 0; row <= 3; row++)
             {
                 for (int column = 0; column <= 2; column++)
@@ -178,7 +178,6 @@ namespace ConnectFour
                     }
                 }
             }
-
             for (int row = 0; row <= 3; row++)
             {
                 for (int column = 3; column <= 5; column++)
