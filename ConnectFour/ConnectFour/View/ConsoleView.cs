@@ -425,6 +425,7 @@ namespace ConnectFour
 
             DisplayPostGameMenu();
         }
+
         public void DisplayMessageBox(string message)
         {
             string leftMargin = new String(' ', ConsoleConfig.displayHorizontalMargin);
