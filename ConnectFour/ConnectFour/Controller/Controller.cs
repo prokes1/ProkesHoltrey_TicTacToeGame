@@ -82,12 +82,9 @@ namespace ConnectFour
                     //
                     // Prompt user to play another round
                     //
-                    if (_gameView.DisplayNewRoundPrompt())
-                    {
-                        _gameboard.InitializeGameboard();
-                        _gameView.InitializeView();
-                        _playingRound = true;
-                    }
+                    _gameboard.InitializeGameboard();
+                    _gameView.InitializeView();
+                    _playingRound = true;
                 }
                 //
                 // Major user error recorded, end game

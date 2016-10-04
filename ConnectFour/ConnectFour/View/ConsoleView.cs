@@ -262,6 +262,75 @@ namespace ConnectFour
 
             System.Environment.Exit(1);
         }
+
+        public void DisplayPostGameMenu()
+        {
+            _gameboard.InitializeGameboard();
+
+            bool usingMenu = true;
+
+            while (usingMenu)
+            {
+                string leftTab = ConsoleUtil.FillStringWithSpaces(Display_Horizontal_Margin);
+
+                DisplayReset();
+                Console.CursorVisible = false;
+
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                DisplayMessage("Post-Game Menu");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine();
+                Console.WriteLine();
+
+                DisplayMessage(leftTab + "1. Start a New Game");
+                Console.WriteLine();
+                DisplayMessage(leftTab + "2. View Game Rules");
+                Console.WriteLine();
+                DisplayMessage(leftTab + "3. View Historic Player Stats");
+                Console.WriteLine();
+                DisplayMessage(leftTab + "4. Exit");
+                Console.WriteLine();
+                Console.WriteLine();
+
+                ConsoleKeyInfo userResponse = Console.ReadKey(true);
+                switch (userResponse.KeyChar)
+                {
+                    case '1':
+                        DisplayGameArea();
+                        usingMenu = false;
+                        break;
+                    case '2':
+                        DisplayGameRules();
+                        usingMenu = true;
+                        break;
+                    case '3':
+                        DisplayHistoricStats();
+                        usingMenu = true;
+                        break;
+                    case '4':
+                        usingMenu = false;
+                        DisplayExitPrompt();
+                        break;
+                    default:
+                        DisplayMessage("It appears you have selected an incorrect choice.");
+                        Console.WriteLine();
+                        DisplayMessage("Press any key to continue or the ESC key to exit.");
+
+                        userResponse = Console.ReadKey(true);
+                        if (userResponse.Key == ConsoleKey.Escape)
+                        {
+                            usingMenu = false;
+                        }
+                        break;
+                }
+            }
+        }
+
+        public void DisplayHistoricStats()
+        {
+
+        }
+
         public void DisplayTimedOutScreen()
         {
             ConsoleUtil.HeaderText = "Session Timed Out!";
@@ -337,50 +406,8 @@ namespace ConnectFour
             ConsoleUtil.DisplayMessage("Player O Wins: " + playerOWins + " - " + String.Format("{0:P2}", playerOPercentageWins));
             ConsoleUtil.DisplayMessage("Cat's Games: " + catsGames + " - " + String.Format("{0:P2}", percentageOfCatsGames));
             DisplayContinuePrompt();
-        }
-        private bool DisplayGetYesNoPrompt(string promptMessage)
-        {
-            DisplayReset();
-            bool yesNoChoice = false;
-            bool validResponse = false;
-            string userResponse;
 
-            while (!validResponse)
-            {
-                DisplayReset();
-                ConsoleUtil.DisplayPromptMessage(promptMessage + " (yes/no)");
-                Console.WriteLine();
-                userResponse = Console.ReadLine();
-
-                if (userResponse.ToUpper() == "YES")
-                {
-                    validResponse = true;
-                    yesNoChoice = true;
-                }
-                else if (userResponse.ToUpper() == "NO")
-                {
-                    validResponse = true;
-                    yesNoChoice = false;
-                    DisplayExitPrompt();
-                }
-                else
-                {
-                    ConsoleUtil.DisplayMessage(
-                        "It appears that you have entered an incorrect response." +
-                        " Please enter either \"yes\" or \"no\"."
-                        );
-                    DisplayContinuePrompt();
-                }
-            }
-
-            return yesNoChoice;
-        }
-        public bool DisplayNewRoundPrompt()
-        {
-            DisplayReset();
-            ConsoleUtil.HeaderText = "Continue or Quit";
-
-            return DisplayGetYesNoPrompt("Would you like to play another round?");
+            DisplayPostGameMenu();
         }
         public void DisplayMessageBox(string message)
         {

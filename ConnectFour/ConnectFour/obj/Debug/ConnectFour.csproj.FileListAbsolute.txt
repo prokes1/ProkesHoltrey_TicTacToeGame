@@ -37,3 +37,9 @@ C:\Users\Jason\Source\Repos\ProkesHoltrey_TicTacToeGame2\ConnectFour\ConnectFour
 C:\Users\Jason\Source\Repos\ProkesHoltrey_TicTacToeGame2\ConnectFour\ConnectFour\bin\Debug\ConnectFour.exe
 C:\Users\Jason\Source\Repos\ProkesHoltrey_TicTacToeGame2\ConnectFour\ConnectFour\bin\Debug\ConnectFour.pdb
 C:\Users\Jason\Source\Repos\ProkesHoltrey_TicTacToeGame2\ConnectFour\ConnectFour\obj\Debug\ConnectFour.csprojResolveAssemblyReference.cache
+C:\Users\Joe_PC\Source\Repos\ProkesHoltrey_TicTacToeGame\ConnectFour\ConnectFour\bin\Debug\ConnectFour.exe.config
+C:\Users\Joe_PC\Source\Repos\ProkesHoltrey_TicTacToeGame\ConnectFour\ConnectFour\obj\Debug\ConnectFour.exe
+C:\Users\Joe_PC\Source\Repos\ProkesHoltrey_TicTacToeGame\ConnectFour\ConnectFour\obj\Debug\ConnectFour.pdb
+C:\Users\Joe_PC\Source\Repos\ProkesHoltrey_TicTacToeGame\ConnectFour\ConnectFour\bin\Debug\ConnectFour.exe
+C:\Users\Joe_PC\Source\Repos\ProkesHoltrey_TicTacToeGame\ConnectFour\ConnectFour\bin\Debug\ConnectFour.pdb
+C:\Users\Joe_PC\Source\Repos\ProkesHoltrey_TicTacToeGame\ConnectFour\ConnectFour\obj\Debug\ConnectFour.csprojResolveAssemblyReference.cache
