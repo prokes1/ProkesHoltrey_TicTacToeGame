@@ -328,7 +328,23 @@ namespace ConnectFour
 
         public void DisplayHistoricStats()
         {
+            DisplayReset();
+            Console.CursorVisible = false;
 
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            DisplayMessage("Historic Player Statistics");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine();
+            Console.WriteLine();
+
+            string stats = File.ReadAllText(@"..\PlayerStats.txt");
+
+            string leftTab = ConsoleUtil.FillStringWithSpaces(Display_Horizontal_Margin);
+
+            DisplayMessage(stats);
+            Console.WriteLine();
+
+            DisplayContinuePrompt();
         }
 
         public void DisplayTimedOutScreen()
@@ -394,7 +410,7 @@ namespace ConnectFour
             DisplayReset();
             ConsoleUtil.HeaderText = "Current Game Status";
 
-            string[] PlayerInfo = { "Rounds Played: " + roundsPlayed.ToString(), "Player X Wins: " + playerXWins.ToString(), "Player O Wins: " + playerOWins.ToString() };
+            string[] PlayerInfo = { "Rounds Played: " + roundsPlayed.ToString() + " | ", "Player X Wins: " + playerXWins.ToString() + " | ", "Player O Wins: " + playerOWins.ToString() };
             File.WriteAllLines(@"..\PlayerStats.txt", PlayerInfo);
 
             double playerXPercentageWins = (double)playerXWins / roundsPlayed;
