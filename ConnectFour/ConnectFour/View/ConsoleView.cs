@@ -339,8 +339,6 @@ namespace ConnectFour
 
             string stats = File.ReadAllText(@"..\PlayerStats.txt");
 
-            string leftTab = ConsoleUtil.FillStringWithSpaces(Display_Horizontal_Margin);
-
             DisplayMessage(stats);
             Console.WriteLine();
 
