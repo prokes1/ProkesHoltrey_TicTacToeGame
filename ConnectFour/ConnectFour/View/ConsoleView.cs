@@ -463,7 +463,7 @@ namespace ConnectFour
                     case '1':
                         DisplayMessage("What would you like the name of your Save Game to be?");
                         string textName = Console.ReadLine().ToUpper();
-                        string[] PlayerInfo = { "Rounds Played: " + roundsPlayed.ToString() + " | ", textName + " Wins: " + playerXWins.ToString() };
+                        string[] PlayerInfo = { "Rounds Played: " + roundsPlayed.ToString() + " | ", "Player X Wins: " + playerXWins.ToString() + " | ", "Player O Wins: " + playerOWins.ToString() };
                         File.WriteAllLines(@".\PlayerStats.txt", PlayerInfo);
                         File.Move("PlayerStats.txt", textName + ".txt");
                         Console.WriteLine();
