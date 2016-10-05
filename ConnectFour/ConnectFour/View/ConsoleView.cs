@@ -263,7 +263,7 @@ namespace ConnectFour
             System.Environment.Exit(1);
         }
 
-        public void DisplayPostGameMenu()
+        public void DisplayPostGameMenu(int roundsPlayed, int playerXWins, int playerOWins, int catsGames)
         {
             _gameboard.InitializeGameboard();
 
@@ -288,7 +288,9 @@ namespace ConnectFour
                 Console.WriteLine();
                 DisplayMessage(leftTab + "3. View Historic Player Stats");
                 Console.WriteLine();
-                DisplayMessage(leftTab + "4. Exit");
+                DisplayMessage(leftTab + "4. Save Game Stats");
+                Console.WriteLine();
+                DisplayMessage(leftTab + "5. Exit");
                 Console.WriteLine();
                 Console.WriteLine();
 
@@ -308,6 +310,10 @@ namespace ConnectFour
                         usingMenu = true;
                         break;
                     case '4':
+                        DisplaySaveStatsOption(roundsPlayed, playerXWins, playerOWins, catsGames);
+                        usingMenu = true;
+                        break;
+                    case '5':
                         usingMenu = false;
                         DisplayExitPrompt();
                         break;
@@ -337,8 +343,12 @@ namespace ConnectFour
             Console.WriteLine();
             Console.WriteLine();
 
-            string stats = File.ReadAllText(@"..\PlayerStats.txt");
+            DisplayMessage("What Player name would you like to search by?");
+            string userResponse = Console.ReadLine().ToUpper();
 
+            string stats = File.ReadAllText(@".\" + userResponse + ".txt");
+
+            Console.WriteLine();
             DisplayMessage(stats);
             Console.WriteLine();
 
@@ -408,8 +418,8 @@ namespace ConnectFour
             DisplayReset();
             ConsoleUtil.HeaderText = "Current Game Status";
 
-            string[] PlayerInfo = { "Rounds Played: " + roundsPlayed.ToString() + " | ", "Player X Wins: " + playerXWins.ToString() + " | ", "Player O Wins: " + playerOWins.ToString() };
-            File.WriteAllLines(@"..\PlayerStats.txt", PlayerInfo);
+            //string[] PlayerInfo = { "Rounds Played: " + roundsPlayed.ToString() + " | ", "Player X Wins: " + playerXWins.ToString() + " | ", "Player O Wins: " + playerOWins.ToString() };
+            //File.WriteAllLines(@"..\PlayerStats.txt", PlayerInfo);
 
             double playerXPercentageWins = (double)playerXWins / roundsPlayed;
             double playerOPercentageWins = (double)playerOWins / roundsPlayed;
@@ -421,7 +431,63 @@ namespace ConnectFour
             ConsoleUtil.DisplayMessage("Cat's Games: " + catsGames + " - " + String.Format("{0:P2}", percentageOfCatsGames));
             DisplayContinuePrompt();
 
-            DisplayPostGameMenu();
+            DisplayPostGameMenu(roundsPlayed, playerXWins, playerOWins, catsGames);
+        }
+
+        public void DisplaySaveStatsOption(int roundsPlayed, int playerXWins, int playerOWins, int catsGames)
+        {
+            bool usingMenu = true;
+
+            while (usingMenu)
+            {
+                string leftTab = ConsoleUtil.FillStringWithSpaces(Display_Horizontal_Margin);
+
+                DisplayReset();
+                Console.CursorVisible = false;
+
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                DisplayMessage("Main Menu");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine();
+                Console.WriteLine();
+
+                DisplayMessage(leftTab + "1. Save Game");
+                Console.WriteLine();
+                DisplayMessage(leftTab + "2. Exit");
+                Console.WriteLine();
+                Console.WriteLine();
+
+                ConsoleKeyInfo userResponse = Console.ReadKey(true);
+                switch (userResponse.KeyChar)
+                {
+                    case '1':
+                        DisplayMessage("What would you like the name of your Save Game to be?");
+                        string textName = Console.ReadLine().ToUpper();
+                        string[] PlayerInfo = { "Rounds Played: " + roundsPlayed.ToString() + " | ", textName + " Wins: " + playerXWins.ToString() };
+                        File.WriteAllLines(@".\PlayerStats.txt", PlayerInfo);
+                        File.Move("PlayerStats.txt", textName + ".txt");
+                        Console.WriteLine();
+                        DisplayMessage("Your saved game is under the name: " + textName);
+                        DisplayContinuePrompt();
+                        usingMenu = false;
+                        break;
+                    case '2':
+                        usingMenu = false;
+                        DisplayExitPrompt();
+                        break;
+                    default:
+                        DisplayMessage("It appears you have selected an incorrect choice.");
+                        Console.WriteLine();
+                        DisplayMessage("Press any key to continue or the ESC key to exit.");
+
+                        userResponse = Console.ReadKey(true);
+                        if (userResponse.Key == ConsoleKey.Escape)
+                        {
+                            usingMenu = false;
+                        }
+                        break;
+                }
+            }
         }
 
         public void DisplayMessageBox(string message)
@@ -543,4 +609,4 @@ namespace ConnectFour
         }
     }
 }
-#endregion
+        #endregion
